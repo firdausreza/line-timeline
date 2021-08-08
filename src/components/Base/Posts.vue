@@ -1,32 +1,80 @@
 <template>
-  <div class="flex flex-col bg-white p-4 w-700 m-auto">
+  <div class="flex flex-col bg-white p-4 w-700 m-auto mt-4">
     <!-- PROFILE WRAPPER -->
     <div class="profile-wrapper flex flex-row items-center justify-between">
       <div class="wrapper flex flex-row">
-        <div>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
+        <img src="@/assets/img/profile-user.svg" width="38" height="38">
         <div class="ml-4">
           <h3 class="text-lg font-semibold">
-            Kabar Liga Inggris
+            {{ post.pageName }}
           </h3>
           <p class="text-gray-400">16 minutes ago</p>
         </div>
       </div>
     </div>
     <!-- IMAGE WRAPPER -->
-    .
+    <div class="mt-2">
+      <swiper
+        :pagination="true"
+        :autoHeight="true"
+      >
+        <swiper-slide v-for="image in post.images" :key="image">
+          <img :src="image" alt="post image" class="w-700">
+        </swiper-slide>
+      </swiper>
+    </div>
     <!-- TEXT WRAPPER -->
     <div class="text-wrapper mt-2">
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint quod ut qui, repellat numquam reprehenderit ullam a commodi velit modi quasi ipsam quis, voluptatibus culpa accusantium delectus corporis maiores facilis rem at perspiciatis sed. Dolor repellat animi vel deserunt ex minus vero quibusdam odio, voluptatum sapiente iste magnam dolore? Fugiat!</p>
+      <p>
+        {{ post.body }}
+      </p>
+    </div>
+    <!-- ICON WRAPPER -->
+    <div class="flex flex-row items-center justify-between mt-4">
+      <!-- INTERACTABLE WRAPPER -->
+      <div class="flex flex-row">
+        <img src="@/assets/img/smile.svg" width="24" height="24">
+        <img src="@/assets/img/messenger.svg" class="ml-4" width="24" height="24">
+        <img src="@/assets/img/export.svg" class="ml-4" width="24" height="24">
+      </div>
+      <!-- STATUS WRAPPER -->
+      <div class="flex flex-row justify-between">
+        <div class="flex flex-row">
+          <img src="@/assets/img/smile.svg" width="24" height="24"> 
+          <p class="ml-2">{{ post.likes }}</p>
+        </div>
+        <div class="ml-4">
+          <p>{{ post.shares > 1 ? post.shares + 'shares' : post.shares + 'share' }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from 'swiper/vue'
+
+// Import Swiper styles
+import 'swiper/swiper.scss';
+import 'swiper/components/pagination/pagination.min.css'
+// import Swiper core and required modules
+import SwiperCore, {
+  Pagination
+} from 'swiper/core';
+
+// install Swiper modules
+SwiperCore.use([Pagination]);
+
 export default {
-  name: 'Posts'
+  name: 'Posts',
+  components: {
+    Swiper,
+    SwiperSlide
+  },
+  props: {
+    post: {
+      type: Object
+    }
+  }
 }
 </script>
