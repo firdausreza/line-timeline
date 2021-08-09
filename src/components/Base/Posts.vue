@@ -44,7 +44,7 @@
           <p class="ml-2">{{ post.likes }}</p>
         </div>
         <div class="ml-4">
-          <p>{{ post.shares > 1 ? post.shares + 'shares' : post.shares + 'share' }}</p>
+          <p>{{ post.shares > 1 ? post.shares + ' shares' : post.shares + ' share' }}</p>
         </div>
       </div>
     </div>
